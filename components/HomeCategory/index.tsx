@@ -20,6 +20,7 @@ export const HomeCategory = ({ category }: HomeCategoryProps) => {
       <FlatList
         data={category.movies}
         horizontal
+        showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
           <Image
             key={item.id}

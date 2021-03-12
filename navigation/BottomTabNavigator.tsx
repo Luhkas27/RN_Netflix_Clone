@@ -7,7 +7,7 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { BottomTabParamList, HomeParamList, TabTwoParamList } from '../types';
-import { HomeScreen } from '../screens';
+import { HomeScreen, MovieDetailsScreen } from '../screens';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -64,6 +64,11 @@ const HomeStack = createStackNavigator<HomeParamList>();
 function TabOneNavigator() {
   return (
     <HomeStack.Navigator>
+      <HomeStack.Screen
+        name="MovieDetailsScreen"
+        component={MovieDetailsScreen}
+        options={{ title: '' }}
+      />
       <HomeStack.Screen
         name="HomeScreen"
         component={HomeScreen}
