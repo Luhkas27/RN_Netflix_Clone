@@ -15,21 +15,26 @@ import {
   FontAwesome,
   MaterialIcons,
 } from '@expo/vector-icons';
-import { EpisodeItem } from '../../components';
+import { EpisodeItem, VideoPlayer } from '../../components';
 import { Picker } from '@react-native-picker/picker';
 
 export const MovieDetailsScreen = () => {
   const [currentSeason, setCurrentSeason] = useState(firstSeason);
+  const [currentEpisode, setCurrentEpisode] = useState(
+    firstSeason.episodes.items[0]
+  );
 
   const seasonNames = movie.seasons.items.map((season) => season.name);
 
   return (
     <View>
-      <Image style={styles.image} source={{ uri: firstEpisode.poster }} />
+      <VideoPlayer episode={currentEpisode} />
 
       <FlatList
         data={currentSeason.episodes.items}
-        renderItem={({ item }) => <EpisodeItem episode={item} />}
+        renderItem={({ item }) => (
+          <EpisodeItem episode={item} onPress={setCurrentEpisode} />
+        )}
         style={{ marginBottom: 250 }}
         ListHeaderComponent={
           <View style={{ padding: 12 }}>
@@ -95,20 +100,24 @@ export const MovieDetailsScreen = () => {
             </View>
 
             <Picker
-              mode="dropdown"
-              dropdownIconColor={'#fff'}
-              style={{ color: 'white', backgroundColor: 'transparent' }}
               selectedValue={currentSeason.name}
               onValueChange={(itemValue, itemIndex) => {
                 setCurrentSeason(movie.seasons.items[itemIndex]);
               }}
+              style={{
+                color: 'white',
+                width: 130,
+                marginBottom: -50,
+                marginTop: -50,
+              }}
+              dropdownIconColor={'white'}
             >
               {seasonNames.map((seasonName) => (
                 <Picker.Item
                   color="#fff"
-                  key={seasonName}
                   label={seasonName}
                   value={seasonName}
+                  key={seasonName}
                 />
               ))}
             </Picker>
