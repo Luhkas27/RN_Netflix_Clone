@@ -1,5 +1,6 @@
+import { useNavigation } from '@react-navigation/core';
 import * as React from 'react';
-import { Image, FlatList } from 'react-native';
+import { Image, FlatList, Pressable } from 'react-native';
 
 import { Text } from '../../components/Themed';
 
@@ -14,6 +15,10 @@ type HomeCategoryProps = {
 };
 
 export const HomeCategory = ({ category }: HomeCategoryProps) => {
+  const navigation = useNavigation();
+  const onMoviePress = (movie) => {
+    navigation.navigate('MovieDetailsScreen', { id: movie.id });
+  };
   return (
     <>
       <Text style={styles.title}>{category.title}</Text>
@@ -22,11 +27,13 @@ export const HomeCategory = ({ category }: HomeCategoryProps) => {
         horizontal
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
-          <Image
-            key={item.id}
-            source={{ uri: item.poster }}
-            style={styles.image}
-          />
+          <Pressable onPress={() => onMoviePress(item)}>
+            <Image
+              key={item.id}
+              source={{ uri: item.poster }}
+              style={styles.image}
+            />
+          </Pressable>
         )}
       />
     </>
